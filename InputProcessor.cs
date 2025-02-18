@@ -15,19 +15,29 @@ public class InputProcessor
         switch(inputParts[0].ToUpper())
         {
             case "PLACE" : 
-                Console.WriteLine($"PLACE");
+                var values = inputParts[1].Split(',');
+                if (values.Length == 3 &&
+                    int.TryParse(values[0], out int x) &&
+                    int.TryParse(values[1], out int y) &&
+                    Enum.TryParse(values[2].ToUpper(), out Direction direction))
+                {
+                    robot.Place(x, y, direction);
+                }
                 break;
-            case "MOVE" : 
-                Console.WriteLine($"MOVE");
+            case "MOVE" :
+                robot.Move();
                 break;
             case "LEFT" :
-                Console.WriteLine($"LEFT");
+                robot.Left();
                 break;
             case "RIGHT" :
-                Console.WriteLine($"RIGHT");
+                robot.Right();
                 break;
             case "REPORT" :
-                Console.WriteLine($"REPORT");
+                Console.WriteLine(robot.Report());
+                break;
+            default:
+                Console.WriteLine($"Invalid input.");
                 break;
 
         }

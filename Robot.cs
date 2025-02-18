@@ -7,7 +7,7 @@ public class Robot
     private int _x,_y;
     private Direction _direction;
 
-    private void Place(int x, int y, Direction direction)
+    public void Place(int x, int y, Direction direction)
     {
         
         if(!ValidPosition(x,y)){
@@ -22,9 +22,70 @@ public class Robot
         
     }
 
-     public string Report()
+    public void Move()
+    {
+        if (!_isPlaced) return;
+
+        int newX = _x, newY = _y;
+        switch (_direction)
+        {
+            case Direction.NORTH: newY++; break;
+            case Direction.EAST: newX++; break;
+            case Direction.SOUTH: newY--; break;
+            case Direction.WEST: newX--; break;
+        }
+
+        if (!ValidPosition(newX, newY))
+        {
+            Console.WriteLine("Robot could not move further, it will fall!");
+            return;
+        }
+
+        _x = newX;
+        _y = newY;
+    }
+
+  
+    public void Left()
+    {
+        if (!_isPlaced)
+        {
+            Console.WriteLine("Robot is not yet placed.");
+            return;
+        }
+
+        //There might be shorter solution than this, but I think this will work for now :D
+        switch (_direction)
+        {
+            case Direction.NORTH: _direction = Direction.WEST; break;
+            case Direction.WEST: _direction = Direction.SOUTH; break;
+            case Direction.SOUTH: _direction = Direction.EAST; break;
+            case Direction.EAST: _direction = Direction.NORTH; break;
+        }
+    }
+
+   
+    public void Right()
+    {
+        if (!_isPlaced)
+        {
+            Console.WriteLine("Robot is not yet placed.");
+            return;
+        }
+
+        //There might be shorter solution than this, but I think this will work for now :D
+        switch (_direction)
+        {
+            case Direction.NORTH: _direction = Direction.EAST; break;
+            case Direction.EAST: _direction = Direction.SOUTH; break;
+            case Direction.SOUTH: _direction = Direction.WEST; break;
+            case Direction.WEST: _direction = Direction.NORTH; break;
+        }
+    }
+
+    public string Report()
      {
-        return _isPlaced ? $"{_x},{_y},{_direction}" : "Robot not placed.";
+        return _isPlaced ? $"X={_x},Y={_y},DIRECTION={_direction}" : "Robot not placed.";
      }
 
     private bool ValidPosition(int x, int y)
