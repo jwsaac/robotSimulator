@@ -29,9 +29,9 @@ public class Robot
         int newX = _x, newY = _y;
         switch (_direction)
         {
-            case Direction.NORTH: newY++; break;
+            case Direction.NORTH: newY--; break;
             case Direction.EAST: newX++; break;
-            case Direction.SOUTH: newY--; break;
+            case Direction.SOUTH: newY++; break;
             case Direction.WEST: newX--; break;
         }
 
@@ -85,7 +85,7 @@ public class Robot
 
     public string Report()
      {
-        return _isPlaced ? $"X={_x},Y={_y},DIRECTION={_direction}" : "Robot not placed.";
+        return _isPlaced ? $"X={_x},Y={_y},DIRECTION={_direction}" : "Robot is not yet placed.";
      }
 
     private bool ValidPosition(int x, int y)
